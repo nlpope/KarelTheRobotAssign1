@@ -8,6 +8,7 @@
  * indicates that the program does nothing.
  */
 
+//testing push 2
 import stanford.karel.*;
 
 public class StoneMasonKarel extends SuperKarel {
