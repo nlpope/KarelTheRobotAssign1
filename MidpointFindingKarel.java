@@ -12,8 +12,25 @@
 
 import stanford.karel.*;
 
-public class MidpointFindingKarel extends SuperKarel {
+public class MidpointFindingKarel extends SuperKarel 
+{
 
-	// You fill in this part
+	public void run()
+	{
+		findMidPoint();
+	}
+	
+	
+	private void findMidPoint()
+	{
+		int beepersLaid = 0;
+		while(frontIsClear()){
+			putBeeper();
+			beepersLaid++;
+			move();
+		}
+		putBeeper();
+		//now recollect & count, head to midpoint and place the beeper
+	}
 
 }
