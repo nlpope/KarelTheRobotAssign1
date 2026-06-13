@@ -22,7 +22,6 @@ public class MidpointFindingKarel extends SuperKarel
 	{
 		placeBeepers();
 		retrieveBeepersBarMidpoint();
-		// layBeeperAtMidpoint();
 	}
 	
 	
@@ -45,12 +44,9 @@ public class MidpointFindingKarel extends SuperKarel
 		double midpoint = 0;
 		
 		if (beepersPlaced % 2 == 0){
-			print("even beepers = " + beepersPlaced + "\n");
 			double midpointMin = beepersPlaced / 2;
-			print("midpointMin = " + midpointMin + "\n");
 			double midpointMax = (beepersPlaced / 2) + 1;
-			print("midpointMax = " + midpointMax + "\n");
-			midpoint = (Math.random() * (midpointMax - midpointMin)) + midpointMin;
+			midpoint = (int)((Math.random() * (midpointMax - midpointMin)) + midpointMin);
 		}
 		else { midpoint = (beepersPlaced / 2) + 0.5; }
 		//prob
