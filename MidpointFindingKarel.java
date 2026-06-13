@@ -14,23 +14,57 @@ import stanford.karel.*;
 
 public class MidpointFindingKarel extends SuperKarel 
 {
-
+	double beepersLaid = 0;
+	
 	public void run()
 	{
-		findMidPoint();
+		placeBeepers();
+		findMidpoint();
+		layAtMidpoint();
 	}
 	
 	
-	private void findMidPoint()
+	private void placeBeepers()
 	{
-		int beepersLaid = 0;
 		while(frontIsClear()){
 			putBeeper();
 			beepersLaid++;
 			move();
 		}
 		putBeeper();
-		//now recollect & count, head to midpoint and place the beeper
 	}
-
+	
+	
+	private void findMidpoint()
+	{
+		turnAround();
+		while(frontIsClear()){
+			pickBeeper();
+			move();
+		}
+		pickBeeper();
+	}
+	
+	
+	private void layAtMidpoint()
+	{
+		double midpoint = 0;
+		int beepersRetrieved = 0;
+		
+		turnAround();
+		if (beepersLaid % 2 == 0){
+			double midpointMin = beepersLaid / 2;
+			double midpointMax = (beepersLaid / 2) + 1;
+			midpoint = (Math.random() * (midpointMax - midpointMin)) + midpointMin;
+		}
+		else { midpoint = (beepersLaid / 2) + 0.5; }
+		
+		while (beepersRetrieved != (beepersLaid - 1)){
+			if (beepersRetrieved != midpoint) { 
+				pickBeeper(); 
+				beepersRetrieved++;
+			}
+			if (frontIsClear()){ move(); }
+		}
+	}
 }
