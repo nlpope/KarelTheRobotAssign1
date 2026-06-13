@@ -11,16 +11,18 @@
  */
 
 import stanford.karel.*;
+import java.util.Random;
 
 public class MidpointFindingKarel extends SuperKarel 
 {
-	double beepersLaid = 0;
+	double beepersPlaced = 0;
+	double beepersRetrieved = 0;
 	
 	public void run()
 	{
 		placeBeepers();
-		findMidpoint();
-		layAtMidpoint();
+		retrieveBeepersBarMidpoint();
+		// layBeeperAtMidpoint();
 	}
 	
 	
@@ -28,43 +30,42 @@ public class MidpointFindingKarel extends SuperKarel
 	{
 		while(frontIsClear()){
 			putBeeper();
-			beepersLaid++;
+			beepersPlaced++;
 			move();
 		}
 		putBeeper();
+		beepersPlaced++;
+		print("beepersplaced = " + beepersPlaced + "\n");
 	}
 	
 	
-	private void findMidpoint()
+	private void retrieveBeepersBarMidpoint()
 	{
 		turnAround();
+		double midpoint = 0;
+		
+		if (beepersPlaced % 2 == 0){
+			print("even beepers = " + beepersPlaced + "\n");
+			double midpointMin = beepersPlaced / 2;
+			print("midpointMin = " + midpointMin + "\n");
+			double midpointMax = (beepersPlaced / 2) + 1;
+			print("midpointMax = " + midpointMax + "\n");
+			midpoint = (Math.random() * (midpointMax - midpointMin)) + midpointMin;
+		}
+		else { midpoint = (beepersPlaced / 2) + 0.5; }
+		//prob
+		print("midpoint = " + midpoint + "\n");
+		//----------------
 		while(frontIsClear()){
 			pickBeeper();
+			beepersRetrieved++;
+			print("beepersRetrievd = " + beepersRetrieved + "\n");
+			if (beepersRetrieved == midpoint){ putBeeper(); }
 			move();
 		}
 		pickBeeper();
-	}
-	
-	
-	private void layAtMidpoint()
-	{
-		double midpoint = 0;
-		int beepersRetrieved = 0;
+		beepersRetrieved++;
 		
-		turnAround();
-		if (beepersLaid % 2 == 0){
-			double midpointMin = beepersLaid / 2;
-			double midpointMax = (beepersLaid / 2) + 1;
-			midpoint = (Math.random() * (midpointMax - midpointMin)) + midpointMin;
-		}
-		else { midpoint = (beepersLaid / 2) + 0.5; }
-		
-		while (beepersRetrieved != (beepersLaid - 1)){
-			if (beepersRetrieved != midpoint) { 
-				pickBeeper(); 
-				beepersRetrieved++;
-			}
-			if (frontIsClear()){ move(); }
-		}
+		print("donezo");
 	}
 }
